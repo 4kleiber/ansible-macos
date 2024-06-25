@@ -1,0 +1,4 @@
+- name: "Copy .zshrc"
+  ansible.builtin.copy:
+    src: zshrc
+    dest: ~/.zshrc

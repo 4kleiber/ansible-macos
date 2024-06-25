@@ -1,0 +1,16 @@
+---
+- name: "Copy config file"
+  become: false
+  notify: "Restart the yabai Service"
+  ansible.builtin.copy:
+    src: yabairc
+    dest: ~/.yabairc
+
+- name: "Install yabai"
+  become: false
+  community.general.homebrew:
+    name:
+      - yabai
+    upgrade_all: true
+- name: "Flush Handlers"
+  ansible.builtin.meta: flush_handlers

@@ -1,0 +1,3 @@
+- name: "Restart the yabai Service"
+  become: false
+  ansible.builtin.command: yabai --restart-service

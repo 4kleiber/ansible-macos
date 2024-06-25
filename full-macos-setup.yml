@@ -1,0 +1,42 @@
+- name: Configure hosts.yml
+  hosts: all
+  connection: local
+
+  roles:
+    - role: geerlingguy.mac.homebrew
+      tags: [ 'homebrew' ]
+      become: true
+    - role: dotfiles
+      become: false
+      tags: [ 'dotfiles' ]
+    - role: git
+      become: false
+      tags: [ 'git' ]
+    - role: yabai
+      become: false
+      tags: [ 'yabai' ]
+
+  tasks:
+    - name: "Generate SSH Key"
+      become: false
+      community.crypto.openssh_keypair:
+        path: ~/.ssh/id_rsa
+        size: 8192
+        type: rsa
+      tags: [ 'ssh-key' ]
+    - name: "Homebrew Install packages"
+      community.general.homebrew:
+        name:
+          - git
+          - jq
+          - k9s
+          - kubectl
+          - minikube
+          - podman
+          - podman-compose
+          - terraform
+          - terraform-docs
+          - visual-studio-code
+          - watch
+        upgrade_all: true
+      tags: [ 'homebrew' ]

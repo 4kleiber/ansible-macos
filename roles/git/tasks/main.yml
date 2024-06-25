@@ -1,0 +1,40 @@
+---
+- name: "Install Git"
+  community.general.homebrew:
+    name:
+      - git
+    upgrade_all: true
+  tags: [ 'homebrew' ]
+# tasks file for configure-git
+- name: Generate an OpenSSH rsa keypair for git
+  become: false
+  community.crypto.openssh_keypair:
+    path: ~/.ssh/id_git
+    type: rsa
+    size: 8192
+
+- name: Configure SSH commit signing
+  become: false
+  community.general.git_config:
+    list_all: true
+
+- name: unset the gpg format
+  become: false
+  community.general.git_config:
+    name: commit.gpgsign
+    scope: global
+    value: true
+
+- name: "switch the signature format to SSH"
+  become: false
+  community.general.git_config:
+    name: gpg.format
+    scope: global
+    value: ssh
+
+- name: "Assign the required ssh key"
+  become: false
+  community.general.git_config:
+    name: user.signingKey
+    scope: global
+    value: ~/.ssh/id_git
