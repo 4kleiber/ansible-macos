@@ -11,6 +11,6 @@
   community.general.homebrew:
     name:
       - yabai
-    upgrade_all: true
+    upgrade_all: false
 - name: "Flush Handlers"
   ansible.builtin.meta: flush_handlers
