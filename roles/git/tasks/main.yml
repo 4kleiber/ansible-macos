@@ -38,3 +38,8 @@
     name: user.signingKey
     scope: global
     value: ~/.ssh/id_git
+
+- name: "Copy ssh config to use git ssh key"
+  ansible.builtin.copy:
+    src: ssh-config
+    dest: ~/.ssh/config
