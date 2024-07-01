@@ -24,14 +24,20 @@
         size: 8192
         type: rsa
       tags: [ 'ssh-key' ]
+    - name: "Homebrew Tab"
+      community.general.homebrew_tap:
+        name: iits-consulting/homebrew-tap
+      tags: [ 'homebrew', 'homewbrewtools' ]
     - name: "Homebrew Install packages"
       community.general.homebrew:
         name:
           - git
+          - helm
           - jq
           - k9s
           - kubectl
           - minikube
+          - otc-auth
           - podman
           - podman-compose
           - terraform
@@ -39,4 +45,4 @@
           - visual-studio-code
           - watch
         upgrade_all: true
-      tags: [ 'homebrew' ]
+      tags: [ 'homebrew', 'homewbrewtools' ]
